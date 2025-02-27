@@ -12,8 +12,8 @@ class NumberController extends Controller
     public function breakdown($money)
     {
         $rawMoney = $money;
-        $moneyToWord = $money;
-        $word = "";
+        $num = $money;
+
         //money breakdown
         $thousand = (int)($money / 1000);
         $money %= 1000;
@@ -70,30 +70,46 @@ class NumberController extends Controller
             90 => "ninety"
         ];
 
-        if ($moneyToWord == 0) {
+        $scales = [
+            1 => "thousand",
+            2 => "million",
+            3 => "billion",
+            4 => "trillion",
+            5 => "quadrillion",
+            6 => "quintillion",
+        ];
+
+
+        $word = "";
+        $scaleIndex = 0;
+        if ($num == 0) {
             $word = "zero";
         } else {
-            if ($moneyToWord >= 1000) {
-                $word .= $premade[(int)($moneyToWord / 1000)] . " thousand ";
-                $moneyToWord %= 1000;
-            }
+            while ($num > 0) {
+                $chunk = $num % 1000;
+                if ($chunk > 0) {
+                    $chunkWord = "";
+                    if ($chunk >= 100) {
+                        $chunkWord .= $premade[(int)($chunk / 100)] . " hundred ";
+                        $chunk %= 100;
+                    }
+                    if ($chunk > 19) {
+                        $chunkWord .= $premade[(int)($chunk / 10) * 10] . " " . $premade[$chunk % 10];
+                    } else {
+                        $chunkWord .= $premade[$chunk];
+                    }
 
-            if ($moneyToWord >= 100) {
-                $word .= $premade[(int)($moneyToWord / 100)] . " hundred ";
-                $moneyToWord %= 100;
-            }
-
-            if ($moneyToWord > 19) {
-                $word .= $premade[(int)($moneyToWord / 10) * 10] . " " . $premade[$moneyToWord % 10];
-            } else {
-                $word .= $premade[$moneyToWord];
+                    $chunkWord = trim($chunkWord);
+                    if ($scaleIndex > 0) {
+                        $chunkWord .= " " . $scales[$scaleIndex];
+                    }
+                    $word = trim($chunkWord . " " . $word);
+                }
+                $num = (int)($num / 1000);
+                $scaleIndex++;
             }
         }
-
-
-
         $word = trim($word);
-
 
         //check if even or odd
         $color = $money % 2 == 0 ? 'red' : 'green';
