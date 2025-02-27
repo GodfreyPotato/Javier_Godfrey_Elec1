@@ -13,7 +13,8 @@ class NumberController extends Controller
     {
         $rawMoney = $money;
         $num = $money;
-
+        //check if even or odd
+        $color = $money % 2 == 0 ? 'red' : 'green';
         //money breakdown
         $thousand = (int)($money / 1000);
         $money %= 1000;
@@ -111,8 +112,7 @@ class NumberController extends Controller
         }
         $word = trim($word);
 
-        //check if even or odd
-        $color = $money % 2 == 0 ? 'red' : 'green';
+
         return view('number', compact('rawMoney', 'word', 'color', 'thousand', 'fiveHundred', 'twoHundred', 'oneHundred', 'fifty', 'twenty', 'five', 'one'));
     }
 }
