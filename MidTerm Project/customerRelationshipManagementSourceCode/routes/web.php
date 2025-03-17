@@ -8,6 +8,7 @@ use App\Http\Controllers\OpportunityController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/{select?}', [HomeController::class, "home"])->name("home");
+Route::get('search/{word?}', [HomeController::class, "search"])->name("search");
 
 //Customer
 Route::get('Customer/NewCustomer', [CustomerController::class, "create"])->name('createCustomer');

@@ -43,7 +43,7 @@
                         @endforeach
                     </select>
                     @error('customer_id')
-                        <span class="text-danger" style="font-size: 10px;">{{$message}}</span>
+                        <span class="text-danger">{{$message}}</span>
                     @enderror
                 </div>
 

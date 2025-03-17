@@ -6,8 +6,9 @@
             <span class="text-success">{{session('success')}}</span>
         @endif
         <div style="height:40%;" class="d-flex flex-column ">
-            <div class="d-flex justify-content-between mb-3 align-items-center"> <span><b>Title:</b>
-                    {{$opportunity[0]->title}}</span>
+            <div class="d-flex justify-content-between mb-3 align-items-center"> <span>
+                    <h3> {{$opportunity[0]->title}}</h3>
+                </span>
                 <a href="{{route('editOpportunity', ['id' => $opportunity[0]->id])}}" class="btn btn-success btn-md">Modify
                     Opportunity</a>
             </div>

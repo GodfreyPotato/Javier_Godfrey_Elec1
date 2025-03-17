@@ -4,62 +4,64 @@
 
     <div class="bg-white w-100  d-flex" style="height: 80%;">
 
-        <div class="w-75 container h-100">
-            <div style="width: 40%;" class="my-4 d-flex align-items-center">
-                <div class="w-50 mr-3">
-                    <select name="" id="reload" class="form-control ">
-                        <option value="Opportunity" {{$selected == "Opportunity" ? "selected" : ""}}>Opportunity</option>
-                        <option value="Deal" {{$selected == "Deal" ? "selected" : ""}}>Deals</option>
-                    </select>
-                </div class="w-50 bg-primary "> @if(session('success')) <span class="text-success"
-                style="font-size: 14px;">{{session('success')}}</span> @else @if(session('delete'))
+        <div class="w-75 d-flex flex-column align-items-center px-5 container h-100">
+            <div class="w-100 d-flex align-items-center my-4">
+
+                <select name="" id="reload" class="form-control text-center mr-3" style="width:20%;">
+                    <option value="Opportunity" {{$selected == "Opportunity" ? "selected" : ""}}>Opportunity</option>
+                    <option value="Deal" {{$selected == "Deal" ? "selected" : ""}}>Deals</option>
+                </select>
+
+                @if(session('success'))
+                    <span class="text-success">{{session('success')}}</span>
+                @else @if(session('delete'))
                     <span class="text-success">{{session('delete')}}</span>
                 @endif
                 @endif
             </div>
-            <div class="  d-flex flex-column align-items-start" style="height:70%; max-height: 70%; overflow-y: auto;">
+            <div class=" w-100 d-flex flex-column align-items-center h-75">
                 @if($selected == "Opportunity")
                     @foreach ($home as $opportunity)
-                        <div style="width:90%;"
-                            class="rounded shadow-sm bg-white d-flex justify-content-between p-2 align-items-center mb-2">
+                        <div class="w-100 rounded shadow-sm bg-white d-flex justify-content-between p-2 align-items-center mb-2">
                             <div>
 
-                                <span style="font-size: 16px; font-weight: bold;">{{$opportunity->title}}</span>
+                                <span style="font-size: 18px; font-weight: bold;"><a
+                                        href="{{route('viewOpportunity', ['id' => $opportunity->id])}}">{{$opportunity->title}}</a></span>
 
-                                <div style="font-size: 12px;">{{$opportunity->name}}</div>
+                                <div style="font-size: 14px;">{{$opportunity->name}}</div>
                             </div>
                             <div class="d-flex justify-content-between align-items-center" style="width:40%;">
                                 <div>
                                     <div><span style="font-size: 16px; font-weight: bold;">Estimated Value</span></div>
                                     <div><span style="font-size: 14px;"> ₱{{$opportunity->estimated_value}}</span></div>
                                 </div>
-                                <div><select name="status" style="font-size: 12px;"
+                                <div><select name="status" style="font-size: 14px;"
                                         onchange="updateStatus(this,{{$opportunity->op_id}})" class="form-control">
 
                                         <option value="open" {{$opportunity->status == "open" ? "selected" : ""}}>Open</option>
                                         <option value="deal" {{$opportunity->status == "deal" ? "selected" : ""}}>Deal</option>
                                     </select></div>
                                 <div><a href="" onclick="confirmDelete({{$opportunity->op_id}})" class="btn btn-danger btn-md"
-                                        style="font-size: 12px;">Delete</a></div>
+                                        style="font-size: 14px;">Delete</a></div>
                             </div>
                         </div>
                     @endforeach
                 @else
                     @foreach ($home as $deal)
-                        <div style="width:90%;"
-                            class="rounded shadow-sm bg-white d-flex justify-content-between p-2 align-items-center mb-2">
+                        <div
+                            class="w-100 rounded p-2 shadow-sm bg-white d-flex justify-content-between p-2 align-items-center mb-2">
                             <div>
                                 <div>
-                                    <span style="font-size: 16px; font-weight: bold;">{{$deal->title}}</span>
+                                    <span style="font-size: 18px; font-weight: bold;">{{$deal->title}}</span>
                                 </div>
-                                <div style="font-size: 12px;">{{$deal->description}}</div>
+                                <div style="font-size: 14px;">{{$deal->description}}</div>
                             </div>
                             <div class="d-flex justify-content-around align-items-center" style="width:40%;">
                                 <div>
                                     <div><span style="font-size: 16px; font-weight: bold;">Amount</span></div>
                                     <div><span style="font-size: 14px;"> ₱{{$deal->amount}}</span></div>
                                 </div>
-                                <div><select onchange="updateStatus2(this,{{$deal->id}})" name="status" style="font-size: 12px;"
+                                <div><select onchange="updateStatus2(this,{{$deal->id}})" name="status" style="font-size: 14px;"
                                         class="form-control">
                                         <option value="pending" {{$deal->status == "pending" ? "selected" : ""}}>Pending</option>
                                         <option value="won" {{$deal->status == "won" ? "selected" : ""}}>Won</option>
@@ -68,10 +70,10 @@
 
                                 @if ($deal->status != "pending")
                                     <div> <a href="" onclick="confirmDelete2({{$deal->id}})" class="btn btn-danger btn-md"
-                                            style="font-size: 12px;">Delete</a></div>
+                                            style="font-size: 14px;">Delete</a></div>
                                 @else
                                     <div> <a href="{{route('editDeal', ['id' => $deal->id])}}" class="btn btn-warning btn-md text-white"
-                                            style="font-size: 12px;">Edit</a></div>
+                                            style="font-size: 14px;">Edit</a></div>
                                 @endif
 
                             </div>
@@ -79,7 +81,9 @@
 
                     @endforeach
                 @endif
-
+                <div class="d-flex justify-content-around w-100 mt-3">
+                    {{ $home->links() }}
+                </div>
             </div>
         </div>
         <div class="w-25 h-100 rounded shadow">
