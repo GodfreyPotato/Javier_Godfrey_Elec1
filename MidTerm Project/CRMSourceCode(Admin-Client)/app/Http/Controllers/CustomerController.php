@@ -23,7 +23,7 @@ class CustomerController extends Controller
     public function create()
     {
         //
-        return view('Create.Customer');
+        return view('Admin.Create.Customer');
     }
 
     /**
@@ -44,9 +44,9 @@ class CustomerController extends Controller
             "address.required" => "Address is required!",
             "birthdate.required" => "Birthdate is required!",
         ]);
-
+      
         try {
-            DB::insert("insert into customers(name,email,address,birthdate,created_at, updated_at) values(?,?,?,?,?,?)", [$validatedData['name'], $validatedData['email'], $validatedData['address'], $validatedData['birthdate'], now(), now()]);
+            DB::insert("insert into customers(name,email,address,birthdate,password,created_at, updated_at) values(?,?,?,?,?,?,?)", [$validatedData['name'], $validatedData['email'], $validatedData['address'], $validatedData['birthdate'], bcrypt("12345678"), now(), now()]);
             return redirect()->route("createCustomer")->with("success", "New Customer Added!");
         } catch (Exception) {
 
@@ -62,7 +62,7 @@ class CustomerController extends Controller
         //
         $customer = DB::select("select * from customers where id = ?", [$id]);
         $customer[0]->created_at = Carbon::parse($customer[0]->created_at)->format('F j, Y');
-        return view("Read.Customer", compact("customer"));
+        return view("Admin.Read.Customer", compact("customer"));
     }
 
     /**
@@ -73,7 +73,7 @@ class CustomerController extends Controller
         //
         $customer = DB::select("select * from customers where id = ?", [$id]);
         $customer[0]->created_at = Carbon::parse($customer[0]->created_at)->format('F j, Y');
-        return view("Update.Customer", compact('customer'));
+        return view("Admin.Update.Customer", compact('customer'));
     }
 
     /**

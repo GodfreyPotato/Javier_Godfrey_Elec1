@@ -1,4 +1,4 @@
-@extends('master')
+@extends('Admin.master')
 @section('content')
 
     <div class="bg-white h-100 p-4">

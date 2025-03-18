@@ -47,7 +47,7 @@ class DealController extends Controller
     {
         //
         $deal = DB::select("select * from deals where id = ?", [$id]);
-        return view("Update.Deal", compact('deal'));
+        return view("Admin.Update.Deal", compact('deal'));
     }
 
     /**

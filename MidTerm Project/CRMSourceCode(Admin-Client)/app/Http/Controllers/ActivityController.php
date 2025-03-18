@@ -19,7 +19,7 @@ class ActivityController extends Controller
         foreach ($activities as $activity) {
             $activity->created = Carbon::parse($activity->created)->format("F j, Y");
         }
-        return view("Read.Activities", compact('activities'));
+        return view("Admin.Read.Activities", compact('activities'));
     }
 
     /**
@@ -31,9 +31,9 @@ class ActivityController extends Controller
         $customers = DB::select("select * from customers");
         if (!empty($id)) {
             $selected = DB::select("select * from customers where id = ?", [$id]);
-            return view("Create.Interaction", compact('customers', 'selected'));
+            return view("Admin.Create.Interaction", compact('customers', 'selected'));
         }
-        return view("Create.Interaction", compact('customers'));
+        return view("Admin.Create.Interaction", compact('customers'));
     }
 
     /**

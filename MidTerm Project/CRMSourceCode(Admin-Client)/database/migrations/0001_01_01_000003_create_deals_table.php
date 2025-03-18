@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->decimal('amount', 12, 2);
-            $table->enum('status', ['won', 'lost', 'pending'])->default('pending');
+            $table->enum('status', ['good', 'bad', 'pending'])->default('pending');
             $table->timestamps();
         });
     }

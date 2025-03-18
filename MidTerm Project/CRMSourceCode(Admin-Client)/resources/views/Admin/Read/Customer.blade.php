@@ -1,4 +1,4 @@
-@extends('master')
+@extends('Admin.master')
 
 @section('content')
     <div class="h-100 d-flex flex-column align-items-center justify-content-center ">

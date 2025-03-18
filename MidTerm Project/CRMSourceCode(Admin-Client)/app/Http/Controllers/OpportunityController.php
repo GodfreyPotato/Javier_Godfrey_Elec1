@@ -18,7 +18,7 @@ class OpportunityController extends Controller
         $opportunity = DB::select("select *, opportunities.id as op_id, opportunities.updated_at as updated from customers join opportunities on customers.id=opportunities.customer_id join activities on opportunities.activity_id = activities.id where opportunities.id = ? ", [$id]);
         $opportunity[0]->updated = Carbon::parse($opportunity[0]->updated)->format('F j, Y');
 
-        return view('Read.Opportunity', compact('opportunity'));
+        return view('Admin.Read.Opportunity', compact('opportunity'));
     }
 
     /**
@@ -52,7 +52,7 @@ class OpportunityController extends Controller
     {
         //
         $opportunity = DB::select("select * from opportunities where activity_id = ?", [$id]);
-        return view("Update.Opportunity", compact('opportunity'));
+        return view("Admin.Update.Opportunity", compact('opportunity'));
     }
 
     /**

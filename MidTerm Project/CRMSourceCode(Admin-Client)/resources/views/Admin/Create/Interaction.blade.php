@@ -1,4 +1,4 @@
-@extends('master')
+@extends('Admin.master')
 @section('content')
     <div class="h-100">
         <form action="{{route('processInteraction')}}" method="POST" class="h-100 bg-primary d-flex">

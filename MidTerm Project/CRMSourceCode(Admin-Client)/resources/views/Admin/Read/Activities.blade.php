@@ -1,4 +1,4 @@
-@extends('master')
+@extends('Admin.master')
 @section('content')
     <div class=" p-2 h-100 bg-secondary d-flex flex-column align-items-center">
         <div class="p-1 w-75">

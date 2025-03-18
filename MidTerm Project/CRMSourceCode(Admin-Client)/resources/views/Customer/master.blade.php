@@ -28,18 +28,17 @@
         <div class="w-50">
             <div class="mb-2">
                 <a href="{{route('home')}}" style="text-decoration: none; color: white;">
-                    <h3>Customer
-                        Relationship Management</h3>
+                    <h3>We D.I.Y.</h3>
                 </a>
             </div>
-            <nav class="d-flex w-100">
-                <a href="{{route('home')}}" class="text-white mr-5" style="font-size: 18px; ">Home</a>
-                <a href="{{route('showActivities')}}" class="text-white mr-5" style="font-size: 18px;">Activities</a>
-                <a href="{{route('createCustomer')}}" class="text-white mr-5" style="font-size: 18px;">Add Customer</a>
-                <a href="{{route('createInteraction')}}" class="text-white mr-5" style="font-size: 18px;">Create
-                    Interaction</a>
-            </nav>
+            @auth
 
+                {{-- <nav class="d-flex w-100">
+                    <a href="{{route('home')}}" class="text-white mr-5" style="font-size: 18px; ">Home</a>
+                    <a href="{{route('showActivities')}}" class="text-white mr-5" style="font-size: 18px;">Activities</a>
+
+                </nav> --}}
+            @endauth
         </div>
         <div class="d-flex justify-content-between w-25">
             @yield('upper-right')
@@ -78,6 +77,7 @@
 
 
     </script>
+
 </body>
 
 </html>

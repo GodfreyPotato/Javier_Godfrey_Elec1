@@ -1,4 +1,4 @@
-@extends('master')
+@extends('Admin.master')
 @section('content')
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
         <div class="col-md-4">
@@ -10,12 +10,12 @@
                         <div class="alert alert-danger">{{ session('error') }}</div>
                     @endif
 
-                    {{-- <form action="{{ route('login') }}" method="POST"> --}}
+                    <form action="{{ route('login') }}" method="POST">
                         @csrf
                         <div class="mb-3">
                             <label for="email" class="form-label">Email Address</label>
                             <input type="email" id="email" name="email"
-                                class="form-control @error('email') is-invalid @enderror" required autofocus>
+                                class="form-control @error('email') is-invalid @enderror">
                             @error('email')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -24,7 +24,7 @@
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
                             <input type="password" id="password" name="password"
-                                class="form-control @error('password') is-invalid @enderror" required>
+                                class="form-control @error('password') is-invalid @enderror">
                             @error('password')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -33,8 +33,8 @@
                         <div class="d-grid">
                             <button type="submit" class="btn btn-primary rounded-pill">Login</button>
                         </div>
-                        {{--
-                    </form> --}}
+
+                    </form>
 
 
 

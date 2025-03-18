@@ -1,4 +1,4 @@
-@extends('master')
+@extends('Admin.master')
 
 @section('content')
 
@@ -64,8 +64,8 @@
                                 <div><select onchange="updateStatus2(this,{{$deal->id}})" name="status" style="font-size: 14px;"
                                         class="form-control">
                                         <option value="pending" {{$deal->status == "pending" ? "selected" : ""}}>Pending</option>
-                                        <option value="won" {{$deal->status == "won" ? "selected" : ""}}>Won</option>
-                                        <option value="lost" {{$deal->status == "lost" ? "selected" : ""}}>Lost</option>
+                                        <option value="good" {{$deal->status == "good" ? "selected" : ""}}>Good</option>
+                                        <option value="bad" {{$deal->status == "bad" ? "selected" : ""}}>Bad</option>
                                     </select></div>
 
                                 @if ($deal->status != "pending")
@@ -107,7 +107,7 @@
                 </div>
             </div>
             <div class="container d-flex align-items-center justify-content-center" style="height: 15%;"><a
-                    href="{{route('createCustomer')}}" class="btn btn-success">Add Customer</a></div>
+                    href="{{route('logout')}}" class="btn btn-danger">Log Out</a></div>
         </div>
     </div>
 
@@ -117,9 +117,9 @@
 
             // Redirect dynamically based on the selected option
             if (val === "Opportunity") {
-                window.location.href = "/Opportunity";
+                window.location.href = "/home/Opportunity";
             } else if (val === "Deal") {
-                window.location.href = "/Deal";
+                window.location.href = "/home/Deal";
             }
         });
 
@@ -127,15 +127,15 @@
         function confirmDelete(id) {
             if (confirm("Are you sure you want to delete it?")) {
 
-                window.location.href = "Opportunity/deleteOpportunity/" + id;
+                window.location.href = "/Opportunity/deleteOpportunity/" + id;
             }
         }
 
         function updateStatus(selected, id) {
             if (selected.value == "deal") {
-                window.location.href = "Opportunity/UpdateOpportunityStatus/" + id + "/" + selected.value;
+                window.location.href = "/Opportunity/UpdateOpportunityStatus/" + id + "/" + selected.value;
             } else if (selected.value == "open") {
-                window.location.href = "Opportunity/UpdateOpportunityStatus/" + id + "/" + selected.value;
+                window.location.href = "/Opportunity/UpdateOpportunityStatus/" + id + "/" + selected.value;
             }
         }
 
@@ -143,54 +143,14 @@
         function confirmDelete2(id) {
             if (confirm("Are you sure you want to delete it?")) {
 
-                window.location.href = "Deal/DeleteDeal/" + id;
+                window.location.href = "/Deal/DeleteDeal/" + id;
             }
         }
 
         function updateStatus2(selected, id) {
-            window.location.href = "Deal/UpdateDealStatus/" + id + "/" + selected.value;
+            window.location.href = "/Deal/UpdateDealStatus/" + id + "/" + selected.value;
 
         }
     </script>
+
 @endsection
-
-{{-- deal --}}
-
-
-{{-- opportunity --}}
-
-
-
-
-
-
-
-{{-- <div class="w-25 h-100 bg-success">
-    <div class="h-50">
-        <div>Activities</div>
-        <div>
-            <div>Nasus january</div>
-            <div>Nasus january</div>
-            <div>Nasus january</div>
-        </div>
-    </div>
-    <div class="h-50 container bg-white d-flex flex-column">
-        <div>Opportunities</div>
-        <div class="w-100">
-            <div class="rounded bg-white d-flex justify-content-between container align-items-center mb-2">
-                <div class="w-75 ">
-                    <div style="text-align:start; font-size: 20px;">
-                        Title Here
-                    </div>
-                    <div style="text-align:start; font-size: 15px;">Description</div>
-                </div>
-                <div class="w-25">
-                    <select name="" id="" class="form-control-sm">
-                        <option value="">Open</option>
-                        <option value="">Deal</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> --}}

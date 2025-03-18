@@ -11,7 +11,7 @@ return new class extends Migration
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
-            $table->enum('interaction_type', ['email', 'call', 'meeting', 'chat']);
+            $table->enum('interaction_type', ['email', 'call', 'meeting', 'chat','web']);
             $table->timestamps();
         });
     }
