@@ -148,9 +148,18 @@
         }
 
         function updateStatus2(selected, id) {
-            window.location.href = "/Deal/UpdateDealStatus/" + id + "/" + selected.value;
+            window.location.href = "Deal/UpdateDealStatus/" + id + "/" + selected.value;
 
         }
     </script>
 
+@endsection
+@section('nav')
+    <nav class="d-flex w-100">
+        <a href="{{route('home')}}" class="text-white mr-5" style="font-size: 18px; ">Home</a>
+        <a href="{{route('showActivities')}}" class="text-white mr-5" style="font-size: 18px;">Activities</a>
+        <a href="{{route('createCustomer')}}" class="text-white mr-5" style="font-size: 18px;">Add Customer</a>
+        <a href="{{route('createInteraction')}}" class="text-white mr-5" style="font-size: 18px;">Create
+            Interaction</a>
+    </nav>
 @endsection
