@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
@@ -31,7 +31,6 @@ class HomeController extends Controller
 
         if ($credentials['email'] === $adminEmail && $credentials['password'] === $adminPassword) {
             Session::put('auth_admin', true);
-            Session::put('admin_email', $adminEmail);
             return redirect()->route('home');
         } else {
             if (Auth::attempt($credentials)) {
@@ -39,7 +38,6 @@ class HomeController extends Controller
                 return redirect()->route('clientHome');
             }
         }
-
 
 
         return back()->withErrors([
@@ -94,10 +92,11 @@ class HomeController extends Controller
             $home = DB::table('opportunities')
                 ->join('customers', 'opportunities.customer_id', '=', 'customers.id')
                 ->select('opportunities.*', 'customers.name', 'opportunities.id as op_id')
+                ->where('status', '=', 'open')
                 ->simplePaginate(5);
         } else {
             $selected = "Deal";
-            $home = DB::table('deals')->simplePaginate(5);
+            $home = DB::table('deals')->where('status', '=', 'pending')->simplePaginate(5);
         }
         return view("Admin.home", compact('customers', 'home', 'selected'));
     }
@@ -115,5 +114,13 @@ class HomeController extends Controller
         }
 
         return $data;
+    }
+
+
+    public function history()
+    {
+        $deals = DB::table('deals')->where('status', '!=', 'pending')->simplePaginate(5);
+
+        return View('admin.read.history', compact('deals'));
     }
 }

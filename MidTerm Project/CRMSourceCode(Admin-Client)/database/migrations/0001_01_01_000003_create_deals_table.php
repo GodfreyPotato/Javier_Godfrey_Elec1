@@ -12,10 +12,11 @@ return new class extends Migration
         Schema::create('deals', function (Blueprint $table) {
             $table->id();
             $table->foreignId('opportunity_id')->constrained('opportunities')->onDelete('cascade');
+            $table->integer('customer_id');
             $table->string('title');
             $table->text('description');
             $table->decimal('amount', 12, 2);
-            $table->enum('status', ['good', 'bad', 'pending'])->default('pending');
+            $table->enum('status', ['good', 'bad'])->default('pending');
             $table->timestamps();
         });
     }

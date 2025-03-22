@@ -57,23 +57,18 @@
                                 <div style="font-size: 14px;">{{$deal->description}}</div>
                             </div>
                             <div class="d-flex justify-content-around align-items-center" style="width:40%;">
-                                <div>
+                                <div style="flex:1;">
                                     <div><span style="font-size: 16px; font-weight: bold;">Amount</span></div>
                                     <div><span style="font-size: 14px;"> ₱{{$deal->amount}}</span></div>
                                 </div>
-                                <div><select onchange="updateStatus2(this,{{$deal->id}})" name="status" style="font-size: 14px;"
-                                        class="form-control">
-                                        <option value="pending" {{$deal->status == "pending" ? "selected" : ""}}>Pending</option>
-                                        <option value="good" {{$deal->status == "good" ? "selected" : ""}}>Good</option>
-                                        <option value="bad" {{$deal->status == "bad" ? "selected" : ""}}>Bad</option>
-                                    </select></div>
+                                <div style="flex:1;">{{strtoupper($deal->status)}}</div>
 
                                 @if ($deal->status != "pending")
-                                    <div> <a href="" onclick="confirmDelete2({{$deal->id}})" class="btn btn-danger btn-md"
-                                            style="font-size: 14px;">Delete</a></div>
+                                    <div style="flex:1;"> <a href="" onclick="confirmDelete2({{$deal->id}})"
+                                            class="btn btn-danger btn-md" style="font-size: 14px;">Delete</a></div>
                                 @else
-                                    <div> <a href="{{route('editDeal', ['id' => $deal->id])}}" class="btn btn-warning btn-md text-white"
-                                            style="font-size: 14px;">Edit</a></div>
+                                    <div style="flex:1;"> <a href="{{route('editDeal', ['id' => $deal->id])}}"
+                                            class="btn btn-warning btn-md text-white" style="font-size: 14px;">Edit</a></div>
                                 @endif
 
                             </div>
@@ -147,10 +142,7 @@
             }
         }
 
-        function updateStatus2(selected, id) {
-            window.location.href = "Deal/UpdateDealStatus/" + id + "/" + selected.value;
 
-        }
     </script>
 
 @endsection

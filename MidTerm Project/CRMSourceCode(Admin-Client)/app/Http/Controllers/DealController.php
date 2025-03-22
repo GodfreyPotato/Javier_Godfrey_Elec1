@@ -89,6 +89,6 @@ class DealController extends Controller
     public function updateStatus(string $id, string $status)
     {
         DB::update("update deals set status= ? where id = ?", [$status, $id]);
-        return redirect()->route("home")->with("success", "Statuts updated!");
+        return redirect()->route("clientHome")->with("success", "Statuts updated!");
     }
 }

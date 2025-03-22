@@ -19,6 +19,9 @@ Route::get('logout', [HomeController::class, "logout"])->name("logout");
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/client', [ClientController::class, "home"])->name("clientHome");
+    Route::get('Deal/UpdateDealStatus/{id}/{status}', [DealController::class, "updateStatus"])->name("updateDealStatus");
+    Route::post('/addOpportunity', [ClientController::class, "store"])->name('addOpportunity');
+    Route::get('/createOpportunity', [ClientController::class, "createOpportunity"])->name('createOpportunity');
 });
 
 
@@ -50,8 +53,10 @@ Route::middleware([AdminAuth::class])->group(function () {
     Route::get('Deal/EditDeal/{id}', [DealController::class, "edit"])->name("editDeal");
     Route::post("Deal/UpdateDeal/{id}", [DealController::class, "update"])->name("updateDeal");
     Route::get("Deal/DeleteDeal/{id}", [DealController::class, "destroy"])->name("deleteDeal");
-    Route::get('Deal/UpdateDealStatus/{id}/{status}', [DealController::class, "updateStatus"])->name("updateDealStatus");
 
     // Logout Route
     Route::post('/logout', [HomeController::class, "logout"])->name('logout');
+
+    //View Done History
+    Route::get('/history', [HomeController::class, "history"])->name('viewHistory');
 });

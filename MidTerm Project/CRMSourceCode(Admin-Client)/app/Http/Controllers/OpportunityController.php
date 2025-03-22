@@ -96,7 +96,7 @@ class OpportunityController extends Controller
         DB::update("update opportunities set status= ? where id = ?", [$status, $id]);
         if ($status == "deal") {
             $dataFromOpportunities = DB::select("select * from opportunities where id = ?", [$id]);
-            DB::insert("insert into deals(opportunity_id,title,description,amount, created_at, updated_at) values (?,?,?,?,?,?)", [$dataFromOpportunities[0]->id, $dataFromOpportunities[0]->title, $dataFromOpportunities[0]->description, $dataFromOpportunities[0]->estimated_value, now(), now()]);
+            DB::insert("insert into deals(opportunity_id,title,description,amount, customer_id, created_at, updated_at) values (?,?,?,?,?,?,?)", [$dataFromOpportunities[0]->id, $dataFromOpportunities[0]->title, $dataFromOpportunities[0]->description, $dataFromOpportunities[0]->estimated_value,$dataFromOpportunities[0]->customer_id, now(), now()]);
             return redirect()->route("home")->with("success", "Statuts updated!");
         } else if ($status == "open") {
             try {

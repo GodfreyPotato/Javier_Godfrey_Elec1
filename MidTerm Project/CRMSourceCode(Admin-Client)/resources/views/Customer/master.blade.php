@@ -27,56 +27,25 @@
     <div class="bg-dark d-flex justify-content-between align-items-center p-3" style="height:20%; font-size: 20px;">
         <div class="w-50">
             <div class="mb-2">
-                <a href="{{route('home')}}" style="text-decoration: none; color: white;">
+                <a href="{{route('clientHome')}}" style="text-decoration: none; color: white;">
                     <h3>We D.I.Y.</h3>
+                    <span style="font-size: 16; ">@yield('name')</span>
                 </a>
             </div>
             @auth
 
                 {{-- <nav class="d-flex w-100">
-                    <a href="{{route('home')}}" class="text-white mr-5" style="font-size: 18px; ">Home</a>
-                    <a href="{{route('showActivities')}}" class="text-white mr-5" style="font-size: 18px;">Activities</a>
+                    <a href="{{route('clientHome')}}" class="text-white mr-5" style="font-size: 18px; ">Home</a>
+
 
                 </nav> --}}
             @endauth
         </div>
-        <div class="d-flex justify-content-between w-25">
-            @yield('upper-right')
-            <div class=" w-75" style="position: relative;">
-                <input id="search" type="text" class="form-control" placeholder="Search opportunity">
-                <ul id="result">
-
-                </ul>
-            </div>
-        </div>
-
+        <div><a href="{{route('createOpportunity')}}" class="btn btn-success btn-md">Add Opportunity</a></div>
     </div>
 
     @yield('content')
-    <script>
-        $(document).ready(function () {
-            $('#search').on('keyup', function () {
-                let word = $(this).val();
-                if (word.length > 0) {
-                    $.ajax({
-                        url: "/search/" + encodeURIComponent(word),
-                        type: "GET",
-                        data: { word: word },
-                        success: function (data) {
-                            $("#result").html(data);
-                        }
-                    });
-                } else {
-                    $("#result").html("");
-                }
-            });
 
-
-        });
-
-
-
-    </script>
 
 </body>
 
