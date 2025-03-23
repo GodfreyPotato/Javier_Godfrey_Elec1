@@ -29,4 +29,12 @@
         @endforeach
         <div class="mt-2 text-dark">{{$deals->links()}}</div>
     </div>
+    <script>
+        function confirmDelete2(id) {
+            if (confirm("Are you sure you want to delete it?")) {
+
+                window.location.href = "/Deal/DeleteDeal/" + id;
+            }
+        }
+    </script>
 @endsection

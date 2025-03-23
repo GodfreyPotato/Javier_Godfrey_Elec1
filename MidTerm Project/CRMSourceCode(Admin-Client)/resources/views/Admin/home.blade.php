@@ -135,12 +135,7 @@
         }
 
         //deal
-        function confirmDelete2(id) {
-            if (confirm("Are you sure you want to delete it?")) {
-
-                window.location.href = "/Deal/DeleteDeal/" + id;
-            }
-        }
+     
 
 
     </script>
