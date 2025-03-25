@@ -1,4 +1,4 @@
-@extends('Admin.master')
+@extends('master')
 @section('content')
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
         <div class="col-md-4">
@@ -30,8 +30,8 @@
                             @enderror
                         </div>
 
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary rounded-pill">Login</button>
+                        <div class="d-flex justify-content-center align-items-center flex-column">
+                            <button type="submit" class="btn btn-primary rounded-pill w-50">Login</button>
                         </div>
 
                     </form>

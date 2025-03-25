@@ -1,4 +1,4 @@
-@extends('Admin.master')
+@extends('master')
 
 @section('content')
     <div class="container d-flex justify-content-center align-items-center h-100 py-4">
@@ -14,7 +14,7 @@
                     <form action="{{ route('register') }}" method="POST">
                         @csrf
                         <div class="mb-3 d-flex justify-content-between">
-                            <div>
+                            <div style="width:45%;">
                                 <label for="name" class="form-label">Full Name</label>
                                 <input type="text" id="name" name="name"
                                     class="form-control @error('name') is-invalid @enderror">
@@ -22,7 +22,7 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div>
+                            <div style="width:45%;">
                                 <label for="email" class="form-label">Email Address</label>
                                 <input type="email" id="email" name="email"
                                     class="form-control @error('email') is-invalid @enderror">
