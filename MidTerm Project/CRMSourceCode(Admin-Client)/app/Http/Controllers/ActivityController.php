@@ -14,11 +14,19 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        $activities = DB::select("select *, activities.created_at as created, opportunities.id as opportunity_id from activities join opportunities on opportunities.activity_id=activities.id join customers on opportunities.customer_id = customers.id");
-        //
+
+        $activities = DB::table('opportunities')
+            ->join("activities", "opportunities.activity_id", "=", "activities.id")
+            ->join("customers", "customers.id", "=", "opportunities.customer_id")
+            ->select("*", "activities.created_at as created", "opportunities.id as opportunity_id")
+
+            ->orderBy("activities.created_at", "Desc")
+            ->simplePaginate(5);
+
         foreach ($activities as $activity) {
             $activity->created = Carbon::parse($activity->created)->format("F j, Y");
         }
+
         return view("Admin.Read.Activities", compact('activities'));
     }
 

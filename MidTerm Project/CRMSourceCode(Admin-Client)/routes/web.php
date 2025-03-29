@@ -22,6 +22,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('Deal/UpdateDealStatus/{id}/{status}', [DealController::class, "updateStatus"])->name("updateDealStatus");
     Route::post('/addOpportunity', [ClientController::class, "store"])->name('addOpportunity');
     Route::get('/createOpportunity', [ClientController::class, "createOpportunity"])->name('createOpportunity');
+    Route::get('Deal/EditDeal/{id}', [ClientController::class, "edit"])->name("editDeal");
+    Route::post("Deal/UpdateDeal/{id}", [ClientController::class, "update"])->name("updateDeal");
 });
 
 
@@ -50,9 +52,8 @@ Route::middleware([AdminAuth::class])->group(function () {
     Route::get('Opportunity/UpdateOpportunityStatus/{id}/{status}', [OpportunityController::class, "updateStatus"])->name("updateOpportunityStatus");
 
     // Deal Routes
-    Route::get('Deal/EditDeal/{id}', [DealController::class, "edit"])->name("editDeal");
-    Route::post("Deal/UpdateDeal/{id}", [DealController::class, "update"])->name("updateDeal");
-    Route::get("Deal/DeleteDeal/{id}", [DealController::class, "destroy"])->name("deleteDeal");
+
+    Route::get("Deal/DeleteDeal/{id}/{opId}", [DealController::class, "destroy"])->name("deleteDeal");
 
     // Logout Route
     Route::post('/logout', [HomeController::class, "logout"])->name('logout');

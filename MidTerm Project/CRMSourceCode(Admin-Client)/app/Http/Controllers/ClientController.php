@@ -44,4 +44,35 @@ class ClientController extends Controller
     {
         return View('customer.createOpportunity');
     }
+    public function edit(string $id)
+    {
+        //
+        $deal = DB::select("select * from deals where id = ?", [$id]);
+        return view("Customer.updateDeal", compact('deal'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'amount' => 'required|numeric',
+            'description' => 'required|string'
+        ], [
+            'title.required' => 'Title is required!',
+            'amount.required' => 'Estimated value is required!',
+            'description.required' => 'Description is required!'
+        ]);
+
+
+        try {
+            DB::update("update deals set title = ?, amount =?, description = ? where id=?", [$validatedData['title'], $validatedData['amount'], $validatedData['description'], $id]);
+            return redirect()->route("clientHome")->with('success', "Modified Successfully!");
+        } catch (Exception) {
+            return redirect()->route("clientHome")->with('error', "Something went wrong!");
+        }
+    }
 }

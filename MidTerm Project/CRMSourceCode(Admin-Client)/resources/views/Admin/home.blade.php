@@ -32,8 +32,8 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center" style="width:40%;">
                                 <div>
-                                    <div><span style="font-size: 16px; font-weight: bold;">Estimated Value</span></div>
-                                    <div><span style="font-size: 14px;"> ₱{{$opportunity->estimated_value}}</span></div>
+                                    <div><span style="font-size: 16px; font-weight: bold;">Recorded</span></div>
+                                    <div><span style="font-size: 14px;"> {{$opportunity->created}}</span></div>
                                 </div>
                                 <div><select name="status" style="font-size: 14px;"
                                         onchange="updateStatus(this,{{$opportunity->op_id}})" class="form-control">
@@ -57,18 +57,20 @@
                                 <div style="font-size: 14px;">{{$deal->description}}</div>
                             </div>
                             <div class="d-flex justify-content-around align-items-center" style="width:40%;">
+
+                                <div style="flex:1; " class="mr-3">
+                                    <div><span style="font-size: 16px; font-weight: bold;">Deal Started</span></div>
+                                    <div><span style="font-size: 14px;"> {{$deal->created_at}}</span></div>
+                                </div>
                                 <div style="flex:1;">
                                     <div><span style="font-size: 16px; font-weight: bold;">Amount</span></div>
                                     <div><span style="font-size: 14px;"> ₱{{$deal->amount}}</span></div>
                                 </div>
                                 <div style="flex:1;">{{strtoupper($deal->status)}}</div>
 
-                                @if ($deal->status != "pending")
-                                    <div style="flex:1;"> <a href="" onclick="confirmDelete2({{$deal->id}})"
+                                @if ($deal->status == "pending")
+                                    <div style="flex:1;"> <a href="" onclick="confirmDelete2({{$deal->id}},{{$deal->opId}})"
                                             class="btn btn-danger btn-md" style="font-size: 14px;">Delete</a></div>
-                                @else
-                                    <div style="flex:1;"> <a href="{{route('editDeal', ['id' => $deal->id])}}"
-                                            class="btn btn-warning btn-md text-white" style="font-size: 14px;">Edit</a></div>
                                 @endif
 
                             </div>
@@ -135,7 +137,11 @@
         }
 
         //deal
-     
+        function confirmDelete2(id, opId) {
+            if (confirm("Are you sure you want to delete it?")) {
+                window.location.href = "/Deal/DeleteDeal/" + id + "/" + opId;
+            }
+        }
 
 
     </script>

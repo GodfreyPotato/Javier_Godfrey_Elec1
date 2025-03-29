@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -91,12 +92,20 @@ class HomeController extends Controller
             $selected = "Opportunity";
             $home = DB::table('opportunities')
                 ->join('customers', 'opportunities.customer_id', '=', 'customers.id')
-                ->select('opportunities.*', 'customers.name', 'opportunities.id as op_id')
+                ->select('opportunities.*', 'customers.name', 'opportunities.id as op_id', "opportunities.created_at as created")
                 ->where('status', '=', 'open')
+                ->orderBy('created_at', 'desc')
                 ->simplePaginate(5);
+
+            foreach ($home as $op) {
+                $op->created = Carbon::parse($op->created)->format('F j, Y');
+            }
         } else {
             $selected = "Deal";
-            $home = DB::table('deals')->where('status', '=', 'pending')->simplePaginate(5);
+            $home = DB::table('deals')->select("deals.*", 'opportunities.id as opId')->join('opportunities', 'deals.opportunity_id', '=', 'opportunities.id')->where('deals.status', '=', 'pending')->orderBy('deals.created_at', 'desc')->simplePaginate(5);
+            foreach ($home as $op) {
+                $op->created_at = Carbon::parse($op->created_at)->format('F j, Y');
+            }
         }
         return view("Admin.home", compact('customers', 'home', 'selected'));
     }

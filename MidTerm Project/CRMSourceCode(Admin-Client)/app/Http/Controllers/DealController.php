@@ -78,12 +78,12 @@ class DealController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id, string $opId)
     {
         //
-
+        DB::update("update opportunities set status = 'open' where id = ?", [$opId]);
         DB::delete("delete from deals where id = ?", [$id]);
-        return redirect()->route('home')->with('success', "Deals deleted successfully!");
+        return redirect()->route('home')->with('success', "Deal deleted successfully!");
     }
 
     public function updateStatus(string $id, string $status)

@@ -1,6 +1,6 @@
 @extends('Admin.master')
 @section('content')
-    <div class=" p-2 h-100 bg-secondary d-flex flex-column align-items-center">
+    <div class=" py-2 px-4 h-100 bg-secondary d-flex flex-column align-items-center">
         <div class="p-1 w-100">
             <h2 style="height: 10%; color: white; text-align: start;">Activities</h2>
         </div>
@@ -28,5 +28,6 @@
             @endforeach
 
         </div>
+        {{$activities->links()}}
     </div>
 @endsection

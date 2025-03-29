@@ -59,6 +59,11 @@
                                 </select>
                             </div>
 
+                            @if ($deal->status == "pending")
+                                <div style="flex:1;"> <a href="{{route('editDeal', ['id' => $deal->id])}}"
+                                        class="btn btn-warning btn-md" style="font-size: 14px;">Edit</a>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 @endforeach
