@@ -1,1 +1,0 @@
-<div class="d-flex justify-content-center align-items-center"><a href="{{ route('login') }}"><h2>Activity 10</h2></a></div>
