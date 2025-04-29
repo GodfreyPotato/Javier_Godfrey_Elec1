@@ -7,8 +7,9 @@
     <div class="px-4">
         <div class="d-flex justify-content-center align-items-center">
             <div>
-                <h1 class="text-dark text-start pt-3 px-2 ">History from Deals</h1>
-                <h2>{{number_format($good[0]->good / ($good[0]->good + $bad[0]->bad) * 100, 2)}}% Succeess Transaction</h2>
+                <h1 class="text-dark text-start pt-3  " style="font-size: 3vw;">History from Deals</h1>
+                <h2 style="font-size: 1.5vw;">{{number_format($good[0]->good / ($good[0]->good + $bad[0]->bad) * 100, 2)}}%
+                    Succeess Transaction</h2>
             </div>
             <canvas id="myChart" style="width:100%;max-width:500px"></canvas>
         </div>
