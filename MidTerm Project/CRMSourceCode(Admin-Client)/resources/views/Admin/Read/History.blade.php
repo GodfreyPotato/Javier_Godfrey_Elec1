@@ -13,7 +13,7 @@
             </div>
             <canvas id="myChart" style="width:100%;max-width:500px"></canvas>
         </div>
-        <div class="py-3 px-2 text-white d-flex flex-column align-items-center">r
+        <div class="py-3 px-2 text-white d-flex flex-column align-items-center">
 
             @foreach ($deals as $deal)
                 <div
