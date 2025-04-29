@@ -1,6 +1,6 @@
 @extends('Customer.master')
 @section('content')
-    <div class="container mt-5">
+    <div class="container mt-5 card p-3 shadow-sm">
         <h2>Create Opportunity</h2>
         <form action="{{route('addOpportunity')}}" method="post">
             @csrf

@@ -19,7 +19,8 @@
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+    </script>
 </head>
 
 <body class="d-flex flex-column vh-100">
@@ -59,6 +60,11 @@
     </div>
 
     @yield('content')
+
+    @php
+        $good = DB::select("select count(*) as good from deals where status = 'good'");
+        $bad = DB::select("select count(*) as bad from deals where status = 'bad'");
+    @endphp
     <script>
         $(document).ready(function () {
             $('#search').on('keyup', function () {
@@ -79,8 +85,33 @@
 
 
         });
+        let good = parseInt({{$good[0]->good}});
+        let bad = parseInt({{$bad[0]->bad}});
 
+        const xValues = ["Good", "Bad"];
+        const yValues = [good, bad];
+        const barColors = [
+            "#198754",
+            "#dc3545",
 
+        ];
+
+        new Chart("myChart", {
+            type: "pie",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: "Performance in Handling Customer"
+                }
+            }
+        });
 
     </script>
 

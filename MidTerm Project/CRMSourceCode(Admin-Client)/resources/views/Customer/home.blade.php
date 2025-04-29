@@ -78,12 +78,12 @@
                 <div class="text-start my-2 ">
                     <h4>Opportunities</h4>
                 </div>
-                <div class="w-100 shadow-sm " style="overflow-y: auto; height: 90%; max-height:90%;">
+                <div class="w-100 " style="overflow-y: auto; height: 90%; max-height:90%;">
                     @foreach ($opportunities as $opportunity)
                         <div
-                            class="rounded bg-white d-flex justify-content-between p-1 align-items-center mb-2 rounded shadow-sm">
+                            class="rounded bg-white d-flex justify-content-between p-2 align-items-center mb-2 rounded shadow-sm">
 
-                            <div>{{$opportunity->title}}</div>
+                            <div style="font-size: 18px;">{{$opportunity->title}}</div>
 
                         </div>
                     @endforeach
