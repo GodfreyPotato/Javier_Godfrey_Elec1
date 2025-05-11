@@ -41,9 +41,9 @@ class HomeController extends Controller
         }
 
 
-        return back()->withErrors([
+        return redirect()->back()->withErrors([
             'email' => 'Invalid credentials. Please try again.',
-        ]);
+        ])->withInput();
     }
 
 
@@ -67,8 +67,8 @@ class HomeController extends Controller
 
         // Insert customer into the database
         DB::insert(
-            "insert into customers(name,email,password,birthdate,address, created_at, updated_at) values (?,?,?,?,?,?,?)",
-            [$validated['name'], $validated['email'], bcrypt($validated['password']), $validated['birthdate'], $validated['address'], now(), now()]
+            "insert into customers(name,email,password,birthdate,address,role, created_at, updated_at) values (?,?,?,?,?,?,?,?)",
+            [$validated['name'], $validated['email'], bcrypt($validated['password']), $validated['birthdate'], $validated['address'], $validated['role'], now(), now()]
         );
         return redirect()->route('login'); // Redirect to home after registration
     }

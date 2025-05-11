@@ -68,7 +68,7 @@ class DealController extends Controller
 
 
         try {
-            DB::update("update deals set title = ?, amount =?, description = ? where id=?", [$validatedData['title'], $validatedData['amount'], $validatedData['description'], $id]);
+            DB::update("update deals set title = ?, amount = ?, description = ? where id=?", [$validatedData['title'], $validatedData['amount'], $validatedData['description'], $id]);
             return redirect()->route("home")->with('success', "Modified Successfully!");
         } catch (Exception) {
             return redirect()->route("editOpportunity", ['id' => $id])->with('error', "Something went wrong!");

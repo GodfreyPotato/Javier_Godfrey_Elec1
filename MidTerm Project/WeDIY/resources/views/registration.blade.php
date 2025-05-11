@@ -11,7 +11,7 @@
                         <div class="alert alert-danger">{{ session('error') }}</div>
                     @endif
 
-                    <form action="{{ route('register') }}" method="POST">
+                    <form action="{{ route('registration.store') }}" method="POST">
                         @csrf
                         <div class="mb-3 d-flex justify-content-between">
                             <div style="width:45%;">
@@ -84,7 +84,7 @@
                     </form>
 
                     <div class="text-center mt-3">
-                        <span>Already have an account?</span> <a href="{{ route('login') }}"
+                        <span>Already have an account?</span> <a href="{{ route('login.index') }}"
                             class="text-decoration-none">Login</a>
                     </div>
                 </div>

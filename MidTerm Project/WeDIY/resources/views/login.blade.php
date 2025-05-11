@@ -10,7 +10,7 @@
                         <div class="alert alert-danger">{{ session('error') }}</div>
                     @endif
 
-                    <form action="{{ route('login') }}" method="POST">
+                    <form action="{{ route('login.store') }}" method="POST">
                         @csrf
                         <div class="mb-3">
                             <label for="email" class="form-label">Email Address</label>
@@ -39,7 +39,7 @@
 
 
                     <div class="text-center mt-2">
-                        <span>Don't have an account?</span> <a href="{{ route('register') }}"
+                        <span>Don't have an account?</span> <a href="{{ route('registration.index') }}"
                             class="text-decoration-none">Sign Up</a>
                     </div>
                 </div>

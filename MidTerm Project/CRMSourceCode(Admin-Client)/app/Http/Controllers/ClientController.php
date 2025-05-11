@@ -26,7 +26,7 @@ class ClientController extends Controller
         $validatedData = $request->validate([
             'title' => "required|max:255|string",
             'description' => "required|string",
-            "estimated_value" => "required|numeric"
+            "estimated_value" => "required|numeric|min:1"
         ],);
 
         try {
@@ -59,12 +59,8 @@ class ClientController extends Controller
         //
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
-            'amount' => 'required|numeric',
+            'amount' => 'required|numeric|min:1',
             'description' => 'required|string'
-        ], [
-            'title.required' => 'Title is required!',
-            'amount.required' => 'Estimated value is required!',
-            'description.required' => 'Description is required!'
         ]);
 
 

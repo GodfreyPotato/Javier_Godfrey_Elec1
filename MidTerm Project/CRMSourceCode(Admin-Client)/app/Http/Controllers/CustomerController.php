@@ -38,15 +38,10 @@ class CustomerController extends Controller
             'email' => "required|email",
             'address' => "required|string|max:255",
             'birthdate' => "required|date",
-        ], [
-            "name.required" => "Name is required!",
-            "email.required" => "Email is required!",
-            "address.required" => "Address is required!",
-            "birthdate.required" => "Birthdate is required!",
         ]);
-      
+
         try {
-            DB::insert("insert into customers(name,email,address,birthdate,password,created_at, updated_at) values(?,?,?,?,?,?,?)", [$validatedData['name'], $validatedData['email'], $validatedData['address'], $validatedData['birthdate'], bcrypt("12345678"), now(), now()]);
+            DB::insert("insert into customers(name,email,address,birthdate,role,password, created_at, updated_at) values(?,?,?,?,?,?,?,?)", [$validatedData['name'], $validatedData['email'], $validatedData['address'], $validatedData['birthdate'], $validatedData['role'], bcrypt("12345678"), now(), now()]);
             return redirect()->route("createCustomer")->with("success", "New Customer Added!");
         } catch (Exception) {
 
@@ -79,7 +74,7 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, string $id)
     {
         //
         $validatedData = $request->validate([
@@ -87,11 +82,6 @@ class CustomerController extends Controller
             'email' => "required|email",
             'address' => "required|string|max:255",
             'birthdate' => "required|date",
-        ], [
-            "name.required" => "Name is required!",
-            "email.required" => "Email is required!",
-            "address.required" => "Address is required!",
-            "birthdate.required" => "Birthdate is required!",
         ]);
 
         try {
