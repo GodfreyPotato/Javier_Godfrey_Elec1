@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -12,6 +13,8 @@ class UserController extends Controller
     public function index()
     {
         //
+        $users = User::whereIn('role', ['customer', 'staff'])->simplePaginate(10);
+        return view('Admin.viewUsers', compact('users'));
     }
 
     /**
@@ -33,9 +36,10 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(User $user)
     {
         //
+        return view('Admin.showUser', compact('user'));
     }
 
     /**

@@ -10,6 +10,7 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\OpportunityController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -46,6 +47,7 @@ Route::middleware(['auth', 'role:staff'])->group(function () {
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/search/{word?}', [AdminController::class, 'search'])->name('search');
+    Route::resource('user', UserController::class);
     Route::resource('report', ReportController::class)->only('show');
     Route::resource('admin', AdminController::class);
     Route::resource('opportunity', OpportunityController::class)->only('show');

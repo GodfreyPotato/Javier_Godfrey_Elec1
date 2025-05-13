@@ -42,7 +42,7 @@
                 <nav class="d-flex w-100">
                     <a href="{{route('admin.index')}}" class="text-white mr-4" style="font-size: 18px; ">Home</a>
                     <a href="{{route('activity.index')}}" class="text-white mr-4" style="font-size: 18px;">Activities</a>
-                    <a href="" class="text-white mr-4" style="font-size: 18px;">Users</a>
+                    <a href="{{route('user.index')}}" class="text-white mr-4" style="font-size: 18px;">Users</a>
                     <a href="{{route('report.index')}}" class="text-white mr-4" style="font-size: 18px;">Reports</a>
                 </nav>
             @endif
