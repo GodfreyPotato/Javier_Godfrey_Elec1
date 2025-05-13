@@ -1,4 +1,4 @@
-@extends('Admin.master')
+@extends('Staff.master')
 
 @section('content')
 
@@ -26,23 +26,25 @@
                             <div>
 
                                 <span style="font-size: 18px; font-weight: bold;"><a
-                                        href="{{route('viewOpportunity', ['id' => $opportunity->id])}}">{{$opportunity->title}}</a></span>
+                                        href="{{route('opportunity.show', ['opportunity' => $opportunity])}}">{{$opportunity->title}}</a></span>
 
-                                <div style="font-size: 14px;">{{$opportunity->name}} here</div>
+                                <div style="font-size: 14px;">{{$opportunity->name}}</div>
                             </div>
                             <div class="d-flex justify-content-between align-items-center" style="width:40%;">
                                 <div>
-                                    <div><span style="font-size: 16px; font-weight: bold;">Recorded</span></div>
-                                    <div><span style="font-size: 14px;"> {{$opportunity->created}}</span></div>
+                                    <div><span style="font-size: 16px; font-weight: bold;">Added on</span></div>
+                                    <div><span style="font-size: 14px;">
+                                            {{$opportunity->created_at->format('M d, Y \a\t g:i A')}}</span>
+                                    </div>
                                 </div>
                                 <div><select name="status" style="font-size: 14px;"
-                                        onchange="updateStatus(this,{{$opportunity->op_id}})" class="form-control">
+                                        onchange="updateStatus(this,{{$opportunity->id}})" class="form-control">
 
-                                        <option value="open" {{$opportunity->status == "open" ? "selected" : ""}}>Open</option>
-                                        <option value="deal" {{$opportunity->status == "deal" ? "selected" : ""}}>Deal</option>
+                                        <option value="pending" {{$opportunity->status == "pending" ? "selected" : ""}}>Pending
+                                        </option>
+                                        <option value="ongoing">Deal</option>
                                     </select></div>
-                                <div><a href="" onclick="confirmDelete({{$opportunity->op_id}})" class="btn btn-danger btn-md"
-                                        style="font-size: 14px;">Delete</a></div>
+
                             </div>
                         </div>
                     @endforeach
@@ -52,26 +54,38 @@
                             class="w-100 rounded p-2 shadow-sm bg-white d-flex justify-content-between p-2 align-items-center mb-2">
                             <div>
                                 <div>
-                                    <span style="font-size: 18px; font-weight: bold;">{{$deal->title}}</span>
+                                    <span style="font-size: 18px; font-weight: bold;">{{strtoupper($deal->title) }}
+                                        {{$deal->id}}</span>
                                 </div>
                                 <div style="font-size: 14px;">{{$deal->description}}</div>
                             </div>
-                            <div class="d-flex justify-content-around align-items-center" style="width:40%;">
+                            <div class="d-flex justify-content-around align-items-center" style="width:60%;">
 
                                 <div style="flex:1; " class="mr-3">
                                     <div><span style="font-size: 16px; font-weight: bold;">Deal Started</span></div>
-                                    <div><span style="font-size: 14px;"> {{$deal->created_at}}</span></div>
+                                    <div><span style="font-size: 12px;"> {{$deal->created_at->format('M d, Y \a\t g:i A')}}</span>
+                                    </div>
                                 </div>
                                 <div style="flex:1;">
                                     <div><span style="font-size: 16px; font-weight: bold;">Amount</span></div>
                                     <div><span style="font-size: 14px;"> ₱{{$deal->amount}}</span></div>
                                 </div>
-                                <div style="flex:1;">{{strtoupper($deal->status)}}</div>
-
-                                @if ($deal->status == "pending")
-                                    <div style="flex:1;"> <a href="" onclick="confirmDelete2({{$deal->id}},{{$deal->opId}})"
-                                            class="btn btn-danger btn-md" style="font-size: 14px;">Delete</a></div>
+                                @if ($deal->remark == "ongoing")
+                                    <div class="mr-3">
+                                        <select name="status" style="font-size: 14px;" onchange="updateStatusDeal(this,{{$deal->id}})"
+                                            class="form-control">
+                                            <option value="ongoing" {{$deal->remark == "ongoing" ? "selected" : ""}}>On Going
+                                            </option>
+                                            <option value="done">Done</option>
+                                        </select>
+                                    </div>
+                                    <div style="flex:1;"> <a href="" onclick="confirmCancel2({{$deal->id}})"
+                                            class="btn btn-danger btn-md" style="font-size: 14px;">Cancel</a></div>
+                                @else
+                                    <div>{{$deal->remark}}</div>
                                 @endif
+
+
 
                             </div>
                         </div>
@@ -87,17 +101,20 @@
 
             <div class=" container bg-white d-flex flex-column" style="height: 80%;">
                 <div class="text-start my-2 ">
-                    <h4>Customers</h4>
+                    <h4>Deal History</h4>
                 </div>
                 <div class="w-100 shadow-sm " style="overflow-y: auto; height: 90%; max-height:90%;">
-                    @foreach ($customers as $customer)
+                    @foreach ($deals as $deal)
                         <div
-                            class="rounded bg-white d-flex justify-content-between p-1 align-items-center mb-2 rounded shadow-sm">
+                            class="rounded  d-flex justify-content-between p-2 align-items-center mb-2 rounded shadow-sm {{$deal->remark != 'done' ? $deal->remark == 'good' ? 'bg-success' : 'bg-danger' : 'bg-white'}} ">
+                            <span style="font-size: 17px; font-weight:bold; ">{{$deal->title}}</span>
+                            <div> <span>{{$deal->updated_at->format('M d, Y \a\t g:i A')}}</span>
+                                @if ($deal->comment != null && ($deal->remark == 'good' || $deal->remark == 'bad'))
+                                    <a href="{{route('deal.show', ['deal' => $deal])}}"> <img src="/images/comment.png" width="17"
+                                            alt=""></a>
+                                @endif
+                            </div>
 
-                            <a href="{{route('viewCustomer', ['id' => $customer->id])}}"
-                                style="font-size: 17px; text-decoration: none;">{{$customer->name}}</a>
-                            <a href="{{route('editCustomer', ['id' => $customer->id])}}" class="btn btn-secondary btn-sm"
-                                onclick="">Edit</a>
                         </div>
                     @endforeach
 
@@ -114,9 +131,9 @@
 
             // Redirect dynamically based on the selected option
             if (val === "Opportunity") {
-                window.location.href = "/home/Opportunity";
+                window.location.href = "/staff/Opportunity";
             } else if (val === "Deal") {
-                window.location.href = "/home/Deal";
+                window.location.href = "/staff/Deal";
             }
         });
 
@@ -129,17 +146,21 @@
         }
 
         function updateStatus(selected, id) {
-            if (selected.value == "deal") {
-                window.location.href = "/Opportunity/UpdateOpportunityStatus/" + id + "/" + selected.value;
-            } else if (selected.value == "open") {
-                window.location.href = "/Opportunity/UpdateOpportunityStatus/" + id + "/" + selected.value;
+            if (selected.value == "ongoing") {
+                window.location.href = "/opportunity/status/" + id;
+            }
+        }
+
+        function updateStatusDeal(selected, id) {
+            if (selected.value == "done") {
+                window.location.href = "/deal/status/" + id;
             }
         }
 
         //deal
-        function confirmDelete2(id, opId) {
-            if (confirm("Are you sure you want to delete it?")) {
-                window.location.href = "/Deal/DeleteDeal/" + id + "/" + opId;
+        function confirmCancel2(id) {
+            if (confirm("Are you sure you want to cancel it?")) {
+                window.location.href = "/deal/cancel/" + id;
             }
         }
 
@@ -147,12 +168,6 @@
     </script>
 
 @endsection
-@section('nav')
-    <nav class="d-flex w-100">
-        <a href="{{route('home')}}" class="text-white mr-5" style="font-size: 18px; ">Home</a>
-        <a href="{{route('showActivities')}}" class="text-white mr-5" style="font-size: 18px;">Activities</a>
-        <a href="{{route('createCustomer')}}" class="text-white mr-5" style="font-size: 18px;">Add Customer</a>
-        <a href="{{route('createInteraction')}}" class="text-white mr-5" style="font-size: 18px;">Create
-            Interaction</a>
-    </nav>
+@section('name')
+    <div> Welcome {{Auth::user()->name}}! <span class="p-1 bg-success rounded">Staff</span></div>
 @endsection
