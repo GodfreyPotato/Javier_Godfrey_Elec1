@@ -17,7 +17,7 @@ class CatController extends Controller
         if ($cat->successful()) {
             return view('welcome', compact('catImg'));
         } else {
-            return response()->json(['error' => 'Could not catch a cat'], 404);
+            return view('welcome', ['error' => 'Could not catch a cat']);
         }
     }
 }

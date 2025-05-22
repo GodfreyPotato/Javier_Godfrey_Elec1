@@ -12,8 +12,12 @@
 
 <body class="d-flex flex-column align-items-center justify-content-center " style="height: 500px;">
     <h2>Cat API - Activity 15</h2>
-    <img src="{{$catImg}}" height="200" alt="" class="mb-3">
-    <a href="{{route('cat')}}" class="btn btn-primary">Regenerate</a>
+    @isset ($error)
+        <h2>Error Occured</h2>
+    @else
+        <img src="{{$catImg}}" height="200" alt="" class="mb-3">
+        <a href="{{route('cat')}}" class="btn btn-primary">Regenerate</a>
+    @endisset
 </body>
 
 </html>
